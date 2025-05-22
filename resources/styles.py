@@ -6,6 +6,26 @@ QMainWindow {
 
 QWidget#mainWidget {
     background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+/* Title Bar Styles */
+QWidget#customTitleBar {
+    background-color: transparent;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+QLabel#titlebarLabel {
+    color: #333;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+QToolButton#exportButton {
+    border: none;
+    background: transparent;
+    border-radius: 4px;
 }
 
 /* Sidebar Styles */
@@ -14,22 +34,24 @@ QWidget#sidebarWidget {
     border-right: none; /* Removed border as we'll use the splitter handle */
 }
 
-/* Title Styles - Bigger as requested */
+/* Title Styles */
 QLabel#titleLabel {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 28px;
+    font-size: 34px;
     font-weight: 600;
-    padding: 8px 0px;
+    padding: 0px 0px;
     color: #333;
+    qproperty-alignment: AlignLeft;
 }
 
 /* Gallery Title Styles */
 QLabel#galleryTitle {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 28px;
+    font-size: 34px;
     font-weight: 600;
-    padding: 8px 0px;
+    padding: 0px 0px;
     color: #333;
+    qproperty-alignment: AlignLeft;
 }
 
 /* Button Styles - Bigger as requested */
@@ -40,7 +62,7 @@ QPushButton {
     border-radius: 8px;
     padding: 14px 14px;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 30px;
     text-align: center;
     border: none;
 }
@@ -92,7 +114,7 @@ QPushButton#clearButton:disabled, QPushButton#saveButton:disabled {
 /* Splitter Styles */
 QSplitter::handle {
     background-color: #e0e0e0;
-    width: 1px;
+    width: 2px;
 }
 
 QSplitter::handle:hover {
@@ -101,7 +123,7 @@ QSplitter::handle:hover {
 
 /* Drop Zone Styles */
 QWidget#dropZoneWidget {
-    background-color: white;
+    background-color: #F8F9F9;
     border: 2px dashed #ddd;
     border-radius: 10px;
     min-height: 200px;
@@ -115,7 +137,7 @@ QWidget#dropZoneWidget:hover {
 QWidget#dropZoneWidget QLabel {
     background-color: transparent;
     color: #666;
-    font-size: 16px;
+    font-size: 24px;
 }
 
 QWidget#dropZoneWidget[dragActive="true"] {
@@ -197,6 +219,14 @@ QWidget#galleryHeader {
     background-color: transparent;
     padding: 10px 15px;
     border-bottom: 1px solid #e0e0e0;
+}
+
+/* Gallery Empty state Styles */
+QLabel#emptyStateLabel {
+    background-color: transparent;
+    color: #666;
+    font-size: 16px;
+    text-align: center;
 }
 
 /* Image Thumbnail Styles - Horizontal layout */

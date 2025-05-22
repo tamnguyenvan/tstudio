@@ -7,7 +7,7 @@ class GalleryHeader(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setObjectName("galleryHeader")
-        self.setFixedHeight(50)
+        # self.setFixedHeight(50)
         self._setup_ui()
         
     def _setup_ui(self):

@@ -11,13 +11,13 @@ class ImageDropZone(QFrame):
         super().__init__(parent)
         self.setObjectName("dropZoneWidget")
         self.setAcceptDrops(True)
-        self.setMinimumHeight(200)
+        self.setMinimumHeight(100)
         self._setup_ui()
         
     def _setup_ui(self):
         """Setup the UI components"""
         self.layout = QVBoxLayout(self)
-        self.layout.setContentsMargins(20, 20, 20, 20)
+        self.layout.setContentsMargins(0, 0, 0, 0)
         self.layout.setAlignment(Qt.AlignCenter)
         
         # Cloud icon

@@ -9,6 +9,7 @@ from .sidebar import Sidebar
 from .gallery_views import ListView
 from .components.gallery_header import GalleryHeader
 from .components.mac_vibrancy_widget import MacVibrancyWidget
+from .components.custom_titlebar import MacOSTitleBar
 from models import BackgroundRemovalWorker
 from utils.platform_utils import IS_MACOS, HAS_NSVIEW
 from resources.styles import STYLESHEET
@@ -20,6 +21,8 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Batch Image Background Remover")
         self.setMinimumSize(1000, 600)
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         
         # Initialize UI
         self._init_ui()
@@ -28,6 +31,7 @@ class MainWindow(QMainWindow):
         self.image_paths = []
         self.processed_images = {}
         self.worker_thread = None 
+        self.is_maximized = False
         
         # Connect signals
         self._connect_signals()
@@ -80,8 +84,8 @@ class MainWindow(QMainWindow):
         self.main_content = QWidget()
         self.main_content.setObjectName("mainContent")
         self.main_content_layout = QVBoxLayout(self.main_content)
-        self.main_content_layout.setContentsMargins(15, 15, 15, 15)
-        self.main_content_layout.setSpacing(0)
+        self.main_content_layout.setContentsMargins(40, 40, 40, 40)
+        self.main_content_layout.setSpacing(30)
         
         # Gallery header
         self.gallery_header = GalleryHeader()
@@ -99,8 +103,12 @@ class MainWindow(QMainWindow):
         
         # Set splitter proportions - 40% sidebar, 60% main content
         total_width = self.width()
-        self.splitter.setSizes([int(total_width * 0.4), int(total_width * 0.6)])
+        self.splitter.setSizes([int(total_width * 0.43), int(total_width * 0.57)])
         
+        # Add title bar
+        self.title_bar = MacOSTitleBar("TStudio", self)
+        self.main_layout.addWidget(self.title_bar)
+
         self.main_layout.addLayout(self.content_layout)
         
         # Window flags for macOS style window
@@ -114,6 +122,12 @@ class MainWindow(QMainWindow):
         self.sidebar.process_clicked.connect(self.process_images)
         self.sidebar.clear_clicked.connect(self.clear_images)
         self.sidebar.save_clicked.connect(self.save_images)
+
+        # Connect title bar signals
+        self.title_bar.closeClicked.connect(self.close)
+        self.title_bar.minimizeClicked.connect(self.showMinimized)
+        self.title_bar.maximizeClicked.connect(self.toggle_maximize)
+        self.title_bar.doubleClicked.connect(self.toggle_maximize)
     
     def _apply_theme(self):
         """Apply theme based on system settings"""
@@ -229,3 +243,15 @@ class MainWindow(QMainWindow):
         super().resizeEvent(event)
         total_width = self.splitter.width()
         self.splitter.setSizes([int(total_width * 0.4), int(total_width * 0.6)])
+
+    def toggle_maximize(self):
+        """Toggle between maximized and normal window state"""
+        if self.is_maximized:
+            self.showNormal()
+            self.is_maximized = False
+        else:
+            self.showMaximized()
+            self.is_maximized = True
+        
+        self.title_bar.set_window_state(self.is_maximized)
+    
