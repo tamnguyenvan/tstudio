@@ -121,13 +121,13 @@ class MainWindow(QMainWindow):
         self.sidebar.images_dropped.connect(self.add_images)
         self.sidebar.process_clicked.connect(self.process_images)
         self.sidebar.clear_clicked.connect(self.clear_images)
-        self.sidebar.save_clicked.connect(self.save_images)
 
         # Connect title bar signals
         self.title_bar.closeClicked.connect(self.close)
         self.title_bar.minimizeClicked.connect(self.showMinimized)
         self.title_bar.maximizeClicked.connect(self.toggle_maximize)
         self.title_bar.doubleClicked.connect(self.toggle_maximize)
+        self.title_bar.saveClicked.connect(self.save_images)
     
     def _apply_theme(self):
         """Apply theme based on system settings"""
@@ -162,6 +162,7 @@ class MainWindow(QMainWindow):
                 self.list_view.add_image(path)
                 
         self.sidebar.process_button.setEnabled(len(self.image_paths) > 0)
+        self.sidebar.clear_button.setVisible(len(self.image_paths) > 0)
         self.sidebar.clear_button.setEnabled(len(self.image_paths) > 0)
         
         # Update gallery title
@@ -194,7 +195,8 @@ class MainWindow(QMainWindow):
     def processing_finished(self):
         self.sidebar.progress_bar.setVisible(False)
         self.sidebar.process_button.setEnabled(True)
-        self.sidebar.save_button.setEnabled(len(self.processed_images) > 0)
+        self.title_bar.save_button.setVisible(len(self.processed_images) > 0)
+        self.title_bar.save_button.setEnabled(len(self.processed_images) > 0)
         
     def clear_images(self):
         if self.worker_thread and self.worker_thread.isRunning():
@@ -206,8 +208,9 @@ class MainWindow(QMainWindow):
         self.list_view.clear()
         
         self.sidebar.process_button.setEnabled(False)
+        self.sidebar.clear_button.setVisible(False)
+        self.title_bar.save_button.setVisible(False)
         self.sidebar.clear_button.setEnabled(False)
-        self.sidebar.save_button.setEnabled(False)
         self.sidebar.progress_bar.setVisible(False)
         
         # Reset gallery title

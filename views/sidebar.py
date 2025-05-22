@@ -10,7 +10,6 @@ class Sidebar(QWidget):
     images_dropped = Signal(list)
     process_clicked = Signal()
     clear_clicked = Signal()
-    save_clicked = Signal()
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -57,17 +56,15 @@ class Sidebar(QWidget):
         self.bottom_layout = QVBoxLayout()
         self.bottom_layout.setSpacing(30)
         
+        # Create clear button with fixed height
         self.clear_button = QPushButton("Clear All")
         self.clear_button.setObjectName("clearButton")
         self.clear_button.setEnabled(False)
-        
-        # self.save_button = QPushButton("Save All")
-        # self.save_button.setObjectName("saveButton")
-        # self.save_button.setEnabled(False)
+        self.clear_button.setFixedHeight(52)  # Match other buttons
+        self.clear_button.setVisible(False)  # Initially hidden
         
         self.bottom_layout.addWidget(self.clear_button)
-        # self.bottom_layout.addWidget(self.save_button)
-        
+
         # Add bottom buttons to sidebar
         self.layout.addLayout(self.bottom_layout)
         
@@ -76,16 +73,14 @@ class Sidebar(QWidget):
         self.drop_zone.image_dropped.connect(self.images_dropped.emit)
         self.process_button.clicked.connect(self.process_clicked.emit)
         self.clear_button.clicked.connect(self.clear_clicked.emit)
-        # self.save_button.clicked.connect(self.save_clicked.emit)
     
-    def update_ui_state(self, state: dict):
-        """Update UI state based on viewmodel state"""
-        has_images = state.get('has_images', False)
-        has_processed = state.get('has_processed', False)
+    # def update_ui_state(self, state: dict):
+    #     """Update UI state based on viewmodel state"""
+    #     has_images = state.get('has_images', False)
         
-        self.process_button.setEnabled(has_images)
-        self.clear_button.setEnabled(has_images)
-        # self.save_button.setEnabled(has_processed)
+    #     self.process_button.setEnabled(has_images)
+    #     self.clear_button.setEnabled(has_images)
+    #     self.clear_button.setVisible(has_images)
     
     def set_progress(self, value: int):
         """Set progress bar value"""

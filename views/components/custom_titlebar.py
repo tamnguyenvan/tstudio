@@ -101,13 +101,13 @@ class TrafficLightButton(QPushButton):
 
 
 class MacOSTitleBar(QFrame):
-    """Custom macOS-style title bar with traffic lights and export button"""
+    """Custom macOS-style title bar with traffic lights and save button"""
     
     # Signals
     closeClicked = Signal()
     minimizeClicked = Signal()
     maximizeClicked = Signal()
-    exportClicked = Signal()
+    saveClicked = Signal()
     doubleClicked = Signal()
     
     def __init__(self, title="", parent=None):
@@ -121,7 +121,7 @@ class MacOSTitleBar(QFrame):
         self.drag_start_position = QPoint()
         
         # Setup UI
-        self.setFixedHeight(40)
+        self.setFixedHeight(64)
         self.setMouseTracking(True)
         self._setup_ui()
         
@@ -174,28 +174,31 @@ class MacOSTitleBar(QFrame):
         
         self.title_layout.addWidget(self.title_label)
         
-        # Right side - Export button với fixed width để match left side
-        self.export_container = QWidget()
-        self.export_container.setFixedWidth(120)  # Same width as traffic lights
-        self.export_layout = QHBoxLayout(self.export_container)
-        self.export_layout.setContentsMargins(0, 0, 0, 0)
-        self.export_layout.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+        # Right side - Save button with fixed width to match left side
+        self.save_container = QWidget()
+        self.save_container.setFixedWidth(120)  # Same width as traffic lights
+        self.save_layout = QHBoxLayout(self.save_container)
+        self.save_layout.setContentsMargins(0, 0, 0, 0)
+        self.save_layout.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
         
-        self.export_button = QToolButton()
-        self.export_button.setObjectName("exportButton")
-        self.export_button.setToolTip("Export")
-        self.export_button.setIcon(QIcon(str(RESOURCES_PATH / "icons/save.svg")))
-        self.export_button.setIconSize(QSize(24, 24))
-        self.export_button.setCursor(Qt.PointingHandCursor)
-        self.export_button.setFixedSize(40, 32)
-        self.export_button.clicked.connect(self.exportClicked.emit)
+        self.save_button = QPushButton()
+        self.save_button.setObjectName("saveButton")
+        self.save_button.setToolTip("Save processed images")
+        self.save_button.setIcon(QIcon(str(RESOURCES_PATH / "icons/save.svg")))
+        self.save_button.setIconSize(QSize(16, 16))
+        self.save_button.setText(" Save")
+        self.save_button.setCursor(Qt.PointingHandCursor)
+        self.save_button.setFixedSize(80, 32)
+        self.save_button.setEnabled(False)
+        self.save_button.setVisible(False)
+        self.save_button.clicked.connect(self.saveClicked.emit)
         
-        self.export_layout.addWidget(self.export_button)
+        self.save_layout.addWidget(self.save_button)
         
-        # Add to main layout - đảm bảo title luôn ở giữa
+        # Add to main layout
         self.layout.addWidget(self.traffic_lights_container)
         self.layout.addWidget(self.title_container, 1)  # Stretch factor = 1
-        self.layout.addWidget(self.export_container)
+        self.layout.addWidget(self.save_container)
         
         self.setLayout(self.layout)
     

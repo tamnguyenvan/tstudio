@@ -22,7 +22,7 @@ QLabel#titlebarLabel {
     font-weight: 500;
 }
 
-QToolButton#exportButton {
+QPushButton#saveButton {
     background-color: #0d6efd;
     color: white;
     border: none;
@@ -30,14 +30,20 @@ QToolButton#exportButton {
     padding: 6px 12px;
     font-size: 13px;
     font-weight: 500;
+    text-align: center;
 }
 
-QToolButton#exportButton:hover {
+QPushButton#saveButton:hover {
     background-color: #0b5ed7;
 }
 
-QToolButton#exportButton:pressed {
+QPushButton#saveButton:pressed {
     background-color: #0a58ca;
+}
+
+QPushButton#saveButton:disabled {
+    background-color: #e9ecef;
+    color: #adb5bd;
 }
 
 /* Sidebar Styles */
@@ -105,20 +111,7 @@ QPushButton#clearButton:pressed {
     background-color: #c82333;
 }
 
-QPushButton#saveButton {
-    background-color: #28a745;
-    color: white;
-}
-
-QPushButton#saveButton:hover {
-    background-color: #218838;
-}
-
-QPushButton#saveButton:pressed {
-    background-color: #1e7e34;
-}
-
-QPushButton#clearButton:disabled, QPushButton#saveButton:disabled {
+QPushButton#clearButton:disabled {
     background-color: #6c757d;
     color: #adb5bd;
 }
