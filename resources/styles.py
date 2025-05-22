@@ -1,35 +1,47 @@
 STYLESHEET = """
+/* Main Window Styles */
 QMainWindow {
     background-color: transparent;
 }
 
 QWidget#mainWidget {
-    background-color: #f5f5f5;
-    border-radius: 10px;
+    background-color: white;
 }
 
+/* Sidebar Styles */
 QWidget#sidebarWidget {
-    background-color: transparent;
-    border-right: 1px solid #e0e0e0;
+    background-color: white;
+    border-right: none; /* Removed border as we'll use the splitter handle */
 }
 
+/* Title Styles - Bigger as requested */
 QLabel#titleLabel {
-    font-family: "SF Pro Display Regular";
-    font-size: 32px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 28px;
     font-weight: 600;
     padding: 8px 0px;
     color: #333;
 }
 
+/* Gallery Title Styles */
+QLabel#galleryTitle {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    padding: 8px 0px;
+    color: #333;
+}
+
+/* Button Styles - Bigger as requested */
 QPushButton {
-    font-family: "SF Pro Display Regular";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #0d6efd;
     color: white;
     border-radius: 8px;
-    padding: 12px 12px;
+    padding: 14px 14px;
     font-weight: 500;
     font-size: 18px;
-    text-align: left;
+    text-align: center;
     border: none;
 }
 
@@ -47,16 +59,16 @@ QPushButton:disabled {
 }
 
 QPushButton#clearButton {
-    background-color: #dc3545;
+    background-color: #ff3b30;
     color: white;
 }
 
 QPushButton#clearButton:hover {
-    background-color: #c82333;
+    background-color: #e0352b;
 }
 
 QPushButton#clearButton:pressed {
-    background-color: #bd2130;
+    background-color: #c82333;
 }
 
 QPushButton#saveButton {
@@ -77,69 +89,145 @@ QPushButton#clearButton:disabled, QPushButton#saveButton:disabled {
     color: #adb5bd;
 }
 
-QToolButton {
-    font-family: "SF Pro Display Regular";
-    background-color: transparent;
-    border: 1px solid #dee2e6;
-    border-radius: 6px;
-    padding: 8px;
-    margin: 2px;
+/* Splitter Styles */
+QSplitter::handle {
+    background-color: #e0e0e0;
+    width: 1px;
 }
 
-QToolButton:hover {
-    background-color: #f8f9fa;
-    border-color: #adb5bd;
-}
-
-QToolButton:pressed {
-    background-color: #e9ecef;
-    border-color: #6c757d;
-}
-
-QToolButton:checked {
+QSplitter::handle:hover {
     background-color: #0d6efd;
-    border-color: #0d6efd;
-    color: white;
 }
 
-QLabel#dropZoneLabel {
-    background-color: rgba(200, 200, 200, 50);
-    border: 2px dashed #ccc;
+/* Drop Zone Styles */
+QWidget#dropZoneWidget {
+    background-color: white;
+    border: 2px dashed #ddd;
     border-radius: 10px;
-    padding: 30px 20px;
-    font-size: 14px;
-    color: #666;
-    font-weight: 500;
+    min-height: 200px;
 }
 
+QWidget#dropZoneWidget:hover {
+    border: 2px dashed #aaa;
+    background-color: #f9f9f9;
+}
+
+QWidget#dropZoneWidget QLabel {
+    background-color: transparent;
+    color: #666;
+    font-size: 16px;
+}
+
+QWidget#dropZoneWidget[dragActive="true"] {
+    background-color: rgba(13, 110, 253, 0.1);
+    border: 2px dashed #0d6efd;
+}
+
+QWidget#dropZoneWidget[dragActive="true"] QLabel {
+    color: #0d6efd;
+}
+
+/* Cloud Icon Style */
+QLabel#cloudIconLabel {
+    background-color: #e0e0e0;
+    border-radius: 16px;
+    min-width: 32px;
+    min-height: 32px;
+}
+
+/* Scroll Area Styles */
 QScrollArea {
     border: none;
-    background-color: transparent;
+    background-color: white;
 }
 
-QLabel#titleLabel {
-    font-family: "SF Pro Display Regular";
-    font-size: 24px;
-    font-weight: 600;
-    padding: 8px 0px;
-    color: #333;
+QWidget#listViewContainer {
+    background-color: white;
 }
 
+/* Scrollbar Styles */
+QScrollBar:vertical {
+    background: transparent;
+    width: 8px;
+    margin: 0px 2px 0px 2px;
+}
+
+QScrollBar::handle:vertical {
+    background: rgba(0, 0, 0, 60%);
+    min-height: 20px;
+    border-radius: 4px;
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    height: 0;
+    background: none;
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+QScrollBar:horizontal {
+    background: transparent;
+    height: 8px;
+    margin: 2px 0px 2px 0px;
+}
+
+QScrollBar::handle:horizontal {
+    background: rgba(0, 0, 0, 60%);
+    min-width: 20px;
+    border-radius: 4px;
+}
+
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {
+    width: 0;
+    background: none;
+}
+
+QScrollBar::add-page:horizontal,
+QScrollBar::sub-page:horizontal {
+    background: none;
+}
+
+/* Gallery Header Styles */
 QWidget#galleryHeader {
     background-color: transparent;
     padding: 10px 15px;
     border-bottom: 1px solid #e0e0e0;
 }
 
-QLabel#galleryTitle {
-    font-family: "SF Pro Display Regular";
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
+/* Image Thumbnail Styles - Horizontal layout */
+QFrame#thumbnailFrame {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 4px;
 }
 
+QFrame#thumbnailFrame QLabel#imageLabel {
+    border: none;
+    background-color: transparent;
+    min-width: 80px;
+    max-width: 80px;
+    min-height: 80px;
+    max-height: 80px;
+}
+
+QFrame#thumbnailFrame QLabel#nameLabel {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    border: none;
+    padding-left: 10px;
+}
+
+/* Progress Bar Styles */
 QProgressBar {
-    font-family: "SF Pro Display Regular";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     border: 2px solid #e0e0e0;
     border-radius: 5px;
     text-align: center;
@@ -151,49 +239,64 @@ QProgressBar::chunk {
     border-radius: 3px;
 }
 
-/* Dark mode styles */
+/* Dark Mode Styles */
 .dark QWidget#mainWidget {
     background-color: #2d2d2d;
 }
 
 .dark QWidget#sidebarWidget {
-    border-right: 1px solid #3d3d3d;
+    background-color: #2d2d2d;
 }
 
-.dark QWidget#galleryHeader {
-    border-bottom: 1px solid #3d3d3d;
+.dark QSplitter::handle {
+    background-color: #444;
 }
 
-.dark QToolButton {
-    border: 1px solid #555;
-    color: #eee;
+.dark QSplitter::handle:hover {
+    background-color: #0d6efd;
 }
 
-.dark QToolButton:hover {
-    background-color: #404040;
-    border-color: #666;
+.dark QScrollArea, .dark QWidget#listViewContainer {
+    background-color: #2d2d2d;
 }
 
-.dark QToolButton:pressed {
-    background-color: #4a4a4a;
-    border-color: #777;
-}
-
-.dark QLabel#dropZoneLabel {
+.dark QWidget#dropZoneWidget {
     border: 2px dashed #555;
+    background-color: #333;
+}
+
+.dark QWidget#dropZoneWidget:hover {
+    border: 2px dashed #777;
+    background-color: #383838;
+}
+
+.dark QWidget#dropZoneWidget QLabel {
     color: #aaa;
-    background-color: rgba(80, 80, 80, 50);
 }
 
-.dark QLabel#titleLabel {
+.dark QWidget#dropZoneWidget[dragActive="true"] {
+    background-color: rgba(13, 110, 253, 0.2);
+    border: 2px dashed #0d6efd;
+}
+
+.dark QWidget#dropZoneWidget[dragActive="true"] QLabel {
+    color: #0d6efd;
+}
+
+.dark QLabel#cloudIconLabel {
+    background-color: #555;
+}
+
+.dark QLabel#titleLabel, .dark QLabel#galleryTitle {
     color: #eee;
 }
 
-.dark QLabel#galleryTitle {
-    color: #eee;
+.dark QFrame#thumbnailFrame {
+    background-color: #333;
+    border: 1px solid #444;
 }
 
-.dark QLabel {
+.dark QFrame#thumbnailFrame QLabel#nameLabel {
     color: #eee;
 }
 

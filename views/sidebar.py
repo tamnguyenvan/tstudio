@@ -17,8 +17,8 @@ class Sidebar(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setObjectName("sidebarWidget")
-        self.setMinimumWidth(280)
-        self.setMaximumWidth(320)
+        self.setMinimumWidth(320)
+        self.setMaximumWidth(400)
         self._setup_ui()
         self._connect_signals()
         
@@ -40,8 +40,6 @@ class Sidebar(QWidget):
         
         # Process button
         self.process_button = QPushButton("Remove Background")
-        self.process_button.setText("Remove Background")
-        self.process_button.setStyleSheet("text-align: center; vertical-align: middle;")
         self.process_button.setEnabled(False)
         self.layout.addWidget(self.process_button)
         
@@ -62,16 +60,10 @@ class Sidebar(QWidget):
         self.bottom_layout.setSpacing(10)
         
         self.clear_button = QPushButton("Clear All")
-        # self.clear_button.setIcon(QIcon(str(RESOURCES_PATH / "icons/clear.svg")))
-        # self.clear_button.setIconSize(QSize(16, 16))
-        self.clear_button.setStyleSheet("text-align: center; vertical-align: middle;")
         self.clear_button.setObjectName("clearButton")
         self.clear_button.setEnabled(False)
         
         self.save_button = QPushButton("Save All")
-        # self.save_button.setIcon(QIcon(str(RESOURCES_PATH / "icons/save.svg")))
-        # self.save_button.setIconSize(QSize(16, 16))
-        self.save_button.setStyleSheet("text-align: center; vertical-align: middle;")
         self.save_button.setObjectName("saveButton")
         self.save_button.setEnabled(False)
         

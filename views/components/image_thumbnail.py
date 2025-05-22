@@ -1,6 +1,6 @@
-from PySide6.QtWidgets import QFrame, QWidget, QVBoxLayout, QLabel, QGraphicsDropShadowEffect
+from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QPixmap, QImage, QColor
+from PySide6.QtGui import QPixmap, QImage
 from models import ImageModel
 
 class ImageThumbnail(QFrame):
@@ -8,57 +8,32 @@ class ImageThumbnail(QFrame):
     
     def __init__(self, image_model: ImageModel, parent=None):
         super().__init__(parent)
+        self.setObjectName("thumbnailFrame")
         self.image_model = image_model
         self._setup_ui()
         self._load_image()
         
     def _setup_ui(self):
-        self.setStyleSheet("""
-            QWidget {
-                background-color: #f8f8f8;
-                border: 1px solid #ddd;
-                border-radius: 12px;
-            }
-        """)
-        self.layout = QVBoxLayout()
-        self.layout.setContentsMargins(12, 12, 12, 12)
-        self.layout.setSpacing(10)
+        # Change to horizontal layout
+        self.layout = QHBoxLayout()
+        self.layout.setContentsMargins(8, 8, 8, 8)
+        self.layout.setSpacing(0)
 
         # Image label
         self.image_label = QLabel()
+        self.image_label.setObjectName("imageLabel")
         self.image_label.setAlignment(Qt.AlignCenter)
-        self.image_label.setMinimumSize(150, 150)
-        self.image_label.setMaximumSize(200, 200)
-        self.image_label.setStyleSheet("""
-            QLabel {
-                border: none;
-                border-radius: 8px;
-                background-color: #ffffff;
-            }
-        """)
+        self.image_label.setFixedSize(80, 80)
 
         # Filename label
         self.name_label = QLabel(self.image_model.filename)
-        self.name_label.setAlignment(Qt.AlignCenter)
+        self.name_label.setObjectName("nameLabel")
         self.name_label.setWordWrap(True)
-        self.name_label.setStyleSheet("""
-            QLabel {
-                font-size: 13px;
-                color: #555;
-                font-weight: 500;
-                border: none;
-            }
-        """)
 
         self.layout.addWidget(self.image_label)
         self.layout.addWidget(self.name_label)
+        self.layout.addStretch()
         self.setLayout(self.layout)
-        
-        shadow = QGraphicsDropShadowEffect(self)
-        shadow.setBlurRadius(30)
-        shadow.setOffset(0, 6)
-        shadow.setColor(QColor(0, 0, 0, 45)) 
-        self.setGraphicsEffect(shadow)
     
     def _load_image(self):
         """Load and display the image"""
@@ -68,7 +43,7 @@ class ImageThumbnail(QFrame):
             pixmap = QPixmap(self.image_model.path)
         
         # Scale pixmap while maintaining aspect ratio
-        pixmap = pixmap.scaled(180, 180, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        pixmap = pixmap.scaled(70, 70, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.image_label.setPixmap(pixmap)
     
     def update_with_processed_image(self, processed_image: QImage):
