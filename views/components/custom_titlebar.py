@@ -1,8 +1,10 @@
 from PySide6.QtWidgets import (QFrame, QWidget, QHBoxLayout, QLabel, 
                              QPushButton, QToolButton, QStyle)
-from PySide6.QtCore import Qt, Signal, QPoint, QTimer
-from PySide6.QtGui import (QPainter, QColor, QBrush, QPen,
+from PySide6.QtCore import Qt, Signal, QPoint, QTimer, QSize
+from PySide6.QtGui import (QPainter, QColor, QIcon, QBrush, QPen,
                           QMouseEvent, QPaintEvent, QEnterEvent)
+
+from utils.platform_utils import RESOURCES_PATH
 
 class TrafficLightButton(QPushButton):
     """Traffic light button (close, minimize, maximize) with macOS styling"""
@@ -14,7 +16,7 @@ class TrafficLightButton(QPushButton):
         self.is_pressed = False
         
         # Button properties
-        self.setFixedSize(16, 16)
+        self.setFixedSize(12, 12)
         self.setFocusPolicy(Qt.NoFocus)
         
         # Colors for different states
@@ -76,12 +78,12 @@ class TrafficLightButton(QPushButton):
         # Draw circle
         painter.setBrush(QBrush(color))
         painter.setPen(QPen(color.darker(110), 0.5))
-        painter.drawEllipse(0, 0, 16, 16)
+        painter.drawEllipse(0, 0, 12, 12)
         
         # Draw symbol when hovered
         if self.is_hovered:
             painter.setPen(QPen(self.symbol_color, 1.2))
-            center_x, center_y = 8, 8
+            center_x, center_y = 6, 6
             
             if self.button_type == 'close':
                 # Draw X
@@ -119,7 +121,7 @@ class MacOSTitleBar(QFrame):
         self.drag_start_position = QPoint()
         
         # Setup UI
-        self.setFixedHeight(64)
+        self.setFixedHeight(40)
         self.setMouseTracking(True)
         self._setup_ui()
         
@@ -182,9 +184,10 @@ class MacOSTitleBar(QFrame):
         self.export_button = QToolButton()
         self.export_button.setObjectName("exportButton")
         self.export_button.setToolTip("Export")
-        self.export_button.setIcon(self.style().standardIcon(QStyle.SP_DialogSaveButton))
+        self.export_button.setIcon(QIcon(str(RESOURCES_PATH / "icons/save.svg")))
+        self.export_button.setIconSize(QSize(24, 24))
         self.export_button.setCursor(Qt.PointingHandCursor)
-        self.export_button.setFixedSize(24, 24)
+        self.export_button.setFixedSize(40, 32)
         self.export_button.clicked.connect(self.exportClicked.emit)
         
         self.export_layout.addWidget(self.export_button)

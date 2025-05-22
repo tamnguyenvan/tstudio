@@ -23,9 +23,21 @@ QLabel#titlebarLabel {
 }
 
 QToolButton#exportButton {
+    background-color: #0d6efd;
+    color: white;
     border: none;
-    background: transparent;
-    border-radius: 4px;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+QToolButton#exportButton:hover {
+    background-color: #0b5ed7;
+}
+
+QToolButton#exportButton:pressed {
+    background-color: #0a58ca;
 }
 
 /* Sidebar Styles */
